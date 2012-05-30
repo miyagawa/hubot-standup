@@ -38,7 +38,7 @@ module.exports = (robot) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
     if robot.brain.data.standup[msg.message.user.room].current.name != msg.message.user.name
-      msg.send "#{addressUser(msg.message.user.name, robot.adapter)} but it's not your turn! Use skip instead."
+      msg.reply "but it's not your turn! Use skip instead."
     else
       nextPerson robot, msg.message.user.room, msg
 
