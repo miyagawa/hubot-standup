@@ -1,9 +1,6 @@
 # Agile standup bot ala tender
 #
-# hubot standup for <team> - Start a standup for the team
-# hubot next - I'm done, go to the next person
-# hubot skip <name> - Skip someone when they're offline
-# hubot cancel standup - Cancel the current standup
+# standup? - show help for standup
 
 module.exports = (robot) ->
   robot.respond /(?:cancel|stop) standup *$/i, (msg) ->
@@ -62,6 +59,15 @@ module.exports = (robot) ->
       msg.send "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
     else
       msg.send "#{msg.match[1]}? Never heard of 'em"
+
+  robot.respond /standup\?? *$/i, (msg) ->
+    msg.send """
+             <who> is a member of <team> - tell hubot who is the member of <team>'s standup
+             standup for <team> - start the standup for <team>
+             cancel standup - cancel the current standup
+             next - say when your updates for the standup is done
+             skip <who> - skip someone when they're not available
+             """
 
   robot.catchAll (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
