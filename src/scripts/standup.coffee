@@ -72,7 +72,7 @@ module.exports = (robot) ->
   robot.catchAll (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
-    robot.brain.data.standup[msg.message.user.room].log.push { message: msg.message, time: new Date() }
+    robot.brain.data.standup[msg.message.user.room].log.push { message: msg.message, time: new Date().getTime() }
 
 shuffleArrayClone = (array) ->
   cloned = []
@@ -85,6 +85,7 @@ nextPerson = (robot, room, msg) ->
   if standup.remaining.length == 0
     howlong = calcMinutes(new Date().getTime() - standup.start)
     msg.send "All done! Standup was #{howlong}."
+    robot.brain.emit 'standupLog', room, standup.group, msg, standup.log
     delete robot.brain.data.standup[room]
   else
     standup.current = standup.remaining.pop()
