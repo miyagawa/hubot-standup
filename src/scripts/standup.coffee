@@ -64,7 +64,13 @@ nextPerson = (robot, room, msg) ->
     delete robot.brain.data.standup[room]
   else
     standup.current = standup.remaining.pop()
-    msg.send "#{standup.current.name}: your turn"
+    msg.send "#{addressUser(standup.current.name, msg)} your turn"
+
+addressUser = (name, msg) ->
+  className = msg.robot.adapter.__proto__.constructor.name
+  switch className
+    when "HipChat" then "@\"#{name}\""
+    else "#{name}:"
 
 calcMinutes = (milliseconds) ->
   seconds = Math.floor(milliseconds / 1000)
