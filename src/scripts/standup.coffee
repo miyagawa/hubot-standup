@@ -42,11 +42,20 @@ module.exports = (robot) ->
   robot.respond /skip (.*) *$/i, (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
-    standup = robot.brain.data.standup[msg.message.user.room]
-    standup.remaining = (user for user in standup.remaining when user.name != msg.match[1])
-    msg.send "Will skip #{msg.match[1]}"
-    if standup.current.name == msg.match[1]
-      nextPerson robot, msg.message.user.room, msg
+
+    users = robot.usersForFuzzyName msg.match[1]
+    if users.length is 1
+      skip = users[0]
+      standup = robot.brain.data.standup[msg.message.user.room]
+      standup.remaining = (user for user in standup.remaining when user.name != skip.name)
+      if standup.current.name == skip.name
+        nextPerson robot, msg.message.user.room, msg
+      else
+        msg.send "Ok, I will skip #{skip.name}"
+    else if users.length > 1
+      msg.send "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
+    else
+      msg.send "#{msg.match[1]}? Never heard of 'em"
 
   robot.catchAll (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
