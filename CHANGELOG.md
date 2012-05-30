@@ -1,3 +1,7 @@
+v0.1.3
+======
+* Fix display URL and Yammer layout
+
 v0.1.2
 ======
 * Fix the order of standupLog event
