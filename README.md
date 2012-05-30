@@ -44,6 +44,8 @@ Now set the token to `HUBOT_STANDUP_YAMMER_TOKEN` and Hubot will ask which group
 
 Create a room (or channel on IRC) for standup (existing one is okay) and invite hubot to the room if necessary.
 
+### Setup
+
 First, you tell hubot who is a member for a particular team for the standup, using the `roles` commands with "(who) is a (team) member".
 
 Let's take "engineering" team for example.
@@ -58,6 +60,10 @@ hubot: Ok, davidlee is an engineering member
 ```
 
 You can create as many teams as you want.
+
+**Note**: This setup process hopefully won't be necessary in the future, when Hubot properly implements an API to get the list of online users in a room. So that everyone in a standup room == standup participants.
+
+### Start the standup
 
 Hubot won't schedule the standup for you (yet), you have to start it by yourself when it's time.
 
