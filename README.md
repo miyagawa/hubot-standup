@@ -15,7 +15,7 @@ In your `package.json`, add the following line to the dependencies:
 Then run `npm install` and create a symbolic link from `scripts` directory:
 
 ```
-ln -s ./node_modules/hubot-standup/src/scripts/hubot-standup.coffee scripts/
+ln -s ../node_modules/hubot-standup/src/scripts/hubot-standup.coffee scripts/
 ```
 
 Add the symlink file to the git repository if necessary (for Heroku deployment).
