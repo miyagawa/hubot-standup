@@ -45,11 +45,14 @@ getYammerGroup = (robot, group) ->
 makeBody = (robot, group, logs) ->
   # TODO templatize?
   date = new Date(logs[0].time)
-  body = "Standup log for #{group}: #{date.toLocaleDateString()}\n"
+  header = "Standup log for #{group}: #{date.toLocaleDateString()}"
+  body = "#{header}\n" + new Array(header.length + 1).join("=") + "\n"
+
   prev = undefined
   for log in logs
     if log.message.user.name isnt prev
       body += "\n#{log.message.user.name}:\n"
     body += "#{log.message.text} (#{new Date(log.time).toLocaleTimeString()})\n"
     prev = log.message.user.name
+
   body
