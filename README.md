@@ -15,11 +15,30 @@ In your `package.json`, add the following line to the dependencies:
 Then run `npm install` and create a symbolic link from `scripts` directory:
 
 ```
-ln -s ../node_modules/hubot-standup/src/scripts/hubot-standup.coffee scripts/
+ln -s ../node_modules/hubot-standup/src/scripts/standup.coffee scripts/
 ```
 
 Add the symlink file to the git repository if necessary (for Heroku deployment).
 
+### Yammer
+
+By symlinking to `standup-yammer.coffee` in addition, the bot will post the standup archive to Yammer. You need to set a valid Yammer OAuth2 token to `HUBOT_STANDUP_YAMMER_TOKEN` environment variable.
+
+Here's how to get a valid Yammer OAuth2 token with the standard OAuth2 authorization flow. 
+
+See [Yammer documentation](https://developer.yammer.com/api/oauth2.html) for more details.
+
+* Register a new application on Yammer at `https://www.yammer.com/<DOMAIN>/client_applications/new`. Leave the callback URLs empty
+* Take notes of your `consumer_key` and `consumer_secret`
+* Make a new bot user on Yammer (optional). This is the user who will post archives as.
+* Sign in as the new bot user on Yammer if necessary
+* Go to `https://www.yammer.com/dialog/oauth?client_id=<consumer_key>`
+* There's an authorization dialog. Authorize the app
+* Look at the URL bar and there's a `code=<CODE>` query parameter in there, copy that.
+* `curl https://www.yammer.com/oauth2/access_token?code=<CODE>&client_id=<consumer_key>&client_secret=<consumer_secret>`
+* you'll get a big JSON that contains `access_token` -> `token`
+
+Now set the token to `HUBOT_STANDUP_YAMMER_TOKEN` and Hubot will ask which group ID the log should be posted to. Use the group ID 0 to turn off the feature for a group.
 
 ## How to use
 
@@ -48,7 +67,7 @@ hubot: Ok, let's start the standup: miyagawa, john, davidlee
 hubot: john: your turn
 ```
 
-Hubot remembers who should participate the standup, and will tell who's turn is the next. Tell what you did yesterday, will do today, anything blocked. and say "next" (or "done" or "that's it")
+Hubot remembers who should participate the standup, and will tell whose turn is the next. Tell what you did yesterday, will do today, anything blocked. and say "next" (or "done" or "that's it") when you're done.
 
 ```
 john: Done some pretty nice hack yesterday.
