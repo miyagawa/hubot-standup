@@ -1,0 +1,17 @@
+{
+  "author": "Tatsuhiko Miyagawa",
+  "name": "hubot-standup",
+  "description": "Standup bot with hubot ala tender",
+  "version": "0.1.0",
+  "homepage": "https://github.com/miyagawa/hubot-standup",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/miyagawa/hubot-standup.git"
+  },
+  "engines": {
+    "node": "~0.6.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
