@@ -36,7 +36,7 @@ postYammer = (robot, group, room, response, logs) ->
           response.send "Posting to the group #{group_id} FAILED: #{body}"
         else
           data = JSON.parse body
-          response.send "Posted to Yammer: #{data['messages'][0]['url']}"
+          response.send "Posted to Yammer: #{data['messages'][0]['web_url']}"
 
 getYammerGroup = (robot, group) ->
   robot.brain.data.yammerGroups or= {}
