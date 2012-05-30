@@ -45,8 +45,7 @@ getYammerGroup = (robot, group) ->
 makeBody = (robot, group, logs) ->
   # TODO templatize?
   date = new Date(logs[0].time)
-  header = "Standup log for #{group}: #{date.toLocaleDateString()}"
-  body = "#{header}\n" + new Array(header.length + 1).join("=") + "\n"
+  body = "Standup log for #{group}: #{date.toLocaleDateString()}\n==================================\n"
 
   prev = undefined
   for log in logs
