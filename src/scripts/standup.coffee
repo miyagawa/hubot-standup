@@ -1,4 +1,10 @@
-# Standup bot
+# Agile standup bot ala tender
+#
+# hubot standup for <team> - Start a standup for the team
+# hubot next - I'm done, go to the next person
+# hubot skip <name> - Skip someone when they're offline
+# hubot cancel standup - Cancel the current standup
+
 module.exports = (robot) ->
   robot.respond /(?:cancel|stop) standup *$/i, (msg) ->
     delete robot.brain.data.standup?[msg.message.user.room]
