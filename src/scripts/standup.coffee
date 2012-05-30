@@ -34,7 +34,10 @@ module.exports = (robot) ->
   robot.respond /(?:that\'s it|next(?: person)?|done) *$/i, (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
-    nextPerson robot, msg.message.user.room, msg
+    if robot.brain.data.standup[msg.message.user.room].current.name != msg.message.user.name
+      msg.send "#{addressUser(msg.message.user.name, robot.adapter)} but it's not your turn! Use skip instead."
+    else
+      nextPerson robot, msg.message.user.room, msg
 
   robot.respond /skip (.*) *$/i, (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
@@ -64,10 +67,10 @@ nextPerson = (robot, room, msg) ->
     delete robot.brain.data.standup[room]
   else
     standup.current = standup.remaining.pop()
-    msg.send "#{addressUser(standup.current.name, msg)} your turn"
+    msg.send "#{addressUser(standup.current.name, robot.adapter)} your turn"
 
-addressUser = (name, msg) ->
-  className = msg.robot.adapter.__proto__.constructor.name
+addressUser = (name, adapter) ->
+  className = adapter.__proto__.constructor.name
   switch className
     when "HipChat" then "@\"#{name}\""
     else "#{name}:"
