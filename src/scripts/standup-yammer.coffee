@@ -30,7 +30,7 @@ postYammer = (robot, group, room, response, logs) ->
     body = makeBody robot, group, logs
     response.http('https://www.yammer.com/api/v1/messages.json')
       .header('Authorization', "Bearer #{process.env.HUBOT_STANDUP_YAMMER_TOKEN}")
-      .post(querystring.stringify { 'group_id': group_id, 'body': body }) (err, res, body) ->
+      .post(querystring.stringify { 'group_id': group_id, 'body': body, 'topic0': 'standup' }) (err, res, body) ->
         console.log body
         if err
           response.send "Posting to the group #{group_id} FAILED: #{body}"
