@@ -43,10 +43,13 @@ postYammer = (robot, group, room, response, logs) ->
       .post(querystring.stringify { 'group_id': group_id, 'body': body, 'topic0': 'standup' }) (err, res, body) ->
         console.log body
         if err
-          response.send "Posting to the group #{group_id} FAILED: #{body}"
+          response.send "Posting to the group #{group_id} FAILED: #{err}"
         else
           data = JSON.parse body
-          response.send "Posted to Yammer: #{data['messages'][0]['web_url']}"
+          if data['messages']
+            response.send "Posted to Yammer: #{data['messages'][0]['web_url']}"
+          else
+            response.send "Posting to the group #{group_id} FAILED: #{body}"
 
 getYammerGroup = (robot, group) ->
   robot.brain.data.yammerGroups or= {}
