@@ -37,7 +37,7 @@ module.exports = (robot) ->
   robot.respond /(?:that\'s it|next(?: person)?|done) *$/i, (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
-    if robot.brain.data.standup[msg.message.user.room].current.name != msg.message.user.name
+    if robot.brain.data.standup[msg.message.user.room].current.id isnt msg.message.user.id
       msg.reply "but it's not your turn! Use skip instead."
     else
       nextPerson robot, msg.message.user.room, msg
@@ -51,7 +51,7 @@ module.exports = (robot) ->
       skip = users[0]
       standup = robot.brain.data.standup[msg.message.user.room]
       standup.remaining = (user for user in standup.remaining when user.name != skip.name)
-      if standup.current.name == skip.name
+      if standup.current.id is skip.id
         nextPerson robot, msg.message.user.room, msg
       else
         msg.send "Ok, I will skip #{skip.name}"
