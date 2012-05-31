@@ -2,44 +2,6 @@
 
 Agile style standup bot for [hubot](https://github.com/github/hubot) ala [tender](https://github.com/markpasc/tender).
 
-## Installation
-
-This hubot script depends on `roles.coffee` script. You're recommended to use `redis-brain.coffee` to persist the team information.
-
-In your `package.json`, add the following line to the dependencies:
-
-```
-   "hubot-standup": "git://github.com/miyagawa/hubot-standup.git"
-```
-
-Then run `npm install` and create a symbolic link from `scripts` directory:
-
-```
-ln -s ../node_modules/hubot-standup/src/scripts/standup.coffee scripts/
-```
-
-Add the symlink file to the git repository if necessary (for Heroku deployment).
-
-### Yammer
-
-By symlinking to `standup-yammer.coffee` in addition, the bot will post the standup archive to Yammer. You need to set a valid Yammer OAuth2 token to `HUBOT_STANDUP_YAMMER_TOKEN` environment variable.
-
-Here's how to get a valid Yammer OAuth2 token with the standard OAuth2 authorization flow. 
-
-See [Yammer documentation](https://developer.yammer.com/api/oauth2.html) for more details.
-
-* Register a new application on Yammer at `https://www.yammer.com/<DOMAIN>/client_applications/new`. Leave the callback URLs empty
-* Take notes of your `consumer_key` and `consumer_secret`
-* Make a new bot user on Yammer (optional). This is the user who will post archives as.
-* Sign in as the new bot user on Yammer if necessary
-* Go to `https://www.yammer.com/dialog/oauth?client_id=<consumer_key>`
-* There's an authorization dialog. Authorize the app
-* Look at the URL bar and there's a `code=<CODE>` query parameter in there, copy that.
-* `curl https://www.yammer.com/oauth2/access_token?code=<CODE>&client_id=<consumer_key>&client_secret=<consumer_secret>`
-* you'll get a big JSON that contains `access_token` -> `token`
-
-Now set the token to `HUBOT_STANDUP_YAMMER_TOKEN` and Hubot will ask which group ID the log should be posted to. Use the group ID 0 to turn off the feature for a group.
-
 ## How to use
 
 Create a room (or channel on IRC) for standup (existing one is okay) and invite hubot to the room if necessary.
@@ -98,6 +60,44 @@ miyagawa: I'm working on some nice stuff, and will continue doing so today.
 miyagawa: hubot next
 hubot: All done! Standup was 5 minutes and 24 seconds.
 ```
+
+## Installation
+
+This hubot script depends on `roles.coffee` script. You're recommended to use `redis-brain.coffee` to persist the team information.
+
+In your `package.json`, add the following line to the dependencies:
+
+```
+   "hubot-standup": "git://github.com/miyagawa/hubot-standup.git"
+```
+
+Then run `npm install` and create a symbolic link from `scripts` directory:
+
+```
+ln -s ../node_modules/hubot-standup/src/scripts/standup.coffee scripts/
+```
+
+Add the symlink file to the git repository if necessary (for Heroku deployment).
+
+### Yammer
+
+By symlinking to `standup-yammer.coffee` in addition, the bot will post the standup archive to Yammer. You need to set a valid Yammer OAuth2 token to `HUBOT_STANDUP_YAMMER_TOKEN` environment variable.
+
+Here's how to get a valid Yammer OAuth2 token with the standard OAuth2 authorization flow. 
+
+See [Yammer documentation](https://developer.yammer.com/api/oauth2.html) for more details.
+
+* Register a new application on Yammer at `https://www.yammer.com/<DOMAIN>/client_applications/new`. Leave the callback URLs empty
+* Take notes of your `consumer_key` and `consumer_secret`
+* Make a new bot user on Yammer (optional). This is the user who will post archives as.
+* Sign in as the new bot user on Yammer if necessary
+* Go to `https://www.yammer.com/dialog/oauth?client_id=<consumer_key>`
+* There's an authorization dialog. Authorize the app
+* Look at the URL bar and there's a `code=<CODE>` query parameter in there, copy that.
+* `curl https://www.yammer.com/oauth2/access_token?code=<CODE>&client_id=<consumer_key>&client_secret=<consumer_secret>`
+* you'll get a big JSON that contains `access_token` -> `token`
+
+Now set the token to `HUBOT_STANDUP_YAMMER_TOKEN` and Hubot will ask which group ID the log should be posted to. Use the group ID 0 to turn off the feature for a group.
 
 ## Author
 
