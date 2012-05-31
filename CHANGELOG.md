@@ -1,3 +1,8 @@
+v0.1.4
+======
+* Added Yammer error handling
+* Added a feature to tell Yammer username and link on the archive
+
 v0.1.3
 ======
 * Fix display URL and Yammer layout
