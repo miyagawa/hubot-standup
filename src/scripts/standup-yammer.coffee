@@ -16,6 +16,16 @@ module.exports = (robot) ->
       postYammer(robot, group, msg.message.user.room, msg, buff)
       delete robot.brain.data.tempYammerBuffer[group]
 
+  robot.respond /i am \@?([a-z0-9-]+) on yammer/i, (msg) ->
+    yammerName = msg.match[1]
+    msg.message.user.yammerName = yammerName
+    msg.send "Ok, you are " + yammerName + " on Yammer"
+
+  robot.respond /forget me on yammer/i, (msg) ->
+    user = msg.message.user
+    user.yammerName = null
+    msg.reply("Ok, I have no idea who you are anymore.")
+
 querystring = require 'querystring'
 
 postYammer = (robot, group, room, response, logs) ->
@@ -50,7 +60,10 @@ makeBody = (robot, group, logs) ->
   prev = undefined
   for log in logs
     if log.message.user.name isnt prev
-      body += "\n#{log.message.user.name}:\n"
+      name = log.message.user.name
+      if log.message.user.yammerName
+        name = '@' + log.message.user.yammerName
+      body += "\n#{name}:\n"
     body += "#{log.message.text} (#{new Date(log.time).toLocaleTimeString()})\n"
     prev = log.message.user.name
 
