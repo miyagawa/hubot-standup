@@ -2,7 +2,7 @@
   "author": "Tatsuhiko Miyagawa",
   "name": "hubot-standup",
   "description": "Standup bot with hubot ala tender",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "homepage": "https://github.com/miyagawa/hubot-standup",
   "repository": {
     "type": "git",

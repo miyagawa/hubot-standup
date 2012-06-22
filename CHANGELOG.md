@@ -1,3 +1,7 @@
+v0.1.5
+======
+* next [someone] will yield someone's turn but will revisit later
+
 v0.1.4
 ======
 * Added Yammer error handling
