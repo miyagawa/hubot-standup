@@ -38,23 +38,31 @@ module.exports = (robot) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
     if robot.brain.data.standup[msg.message.user.room].current.id isnt msg.message.user.id
-      msg.reply "but it's not your turn! Use skip instead."
+      msg.reply "but it's not your turn! Use skip [someone] or next [someone] instead."
     else
       nextPerson robot, msg.message.user.room, msg
 
-  robot.respond /skip (.*) *$/i, (msg) ->
+  robot.respond /(skip|next) (.*) *$/i, (msg) ->
     unless robot.brain.data.standup?[msg.message.user.room]
       return
 
-    users = robot.usersForFuzzyName msg.match[1]
+    is_skip = msg.match[1] == 'skip'
+    users = robot.usersForFuzzyName msg.match[2]
     if users.length is 1
       skip = users[0]
       standup = robot.brain.data.standup[msg.message.user.room]
-      standup.remaining = (user for user in standup.remaining when user.name != skip.name)
-      if standup.current.id is skip.id
-        nextPerson robot, msg.message.user.room, msg
+      if is_skip
+        standup.remaining = (user for user in standup.remaining when user.name != skip.name)
+        if standup.current.id is skip.id
+          nextPerson robot, msg.message.user.room, msg
+        else
+          msg.send "Ok, I will skip #{skip.name}"
       else
-        msg.send "Ok, I will skip #{skip.name}"
+        if standup.current.id is skip.id
+          standup.remaining.push skip
+          nextPerson robot, msg.message.user.room, msg
+        else
+          msg.send "But it is not #{skip.name}'s turn!"
     else if users.length > 1
       msg.send "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
     else
@@ -88,7 +96,7 @@ nextPerson = (robot, room, msg) ->
     robot.brain.emit 'standupLog', standup.group, room, msg, standup.log
     delete robot.brain.data.standup[room]
   else
-    standup.current = standup.remaining.pop()
+    standup.current = standup.remaining.shift()
     msg.send "#{addressUser(standup.current.name, robot.adapter)} your turn"
 
 addressUser = (name, adapter) ->
