@@ -102,7 +102,7 @@ nextPerson = (robot, room, msg) ->
 addressUser = (name, adapter) ->
   className = adapter.__proto__.constructor.name
   switch className
-    when "HipChat" then "@\"#{name}\""
+    when "HipChat" then "@#{name.replace(' ', '')}"
     else "#{name}:"
 
 calcMinutes = (milliseconds) ->
