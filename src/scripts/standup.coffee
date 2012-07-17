@@ -66,7 +66,7 @@ module.exports = (robot) ->
     else if users.length > 1
       msg.send "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
     else
-      msg.send "#{msg.match[1]}? Never heard of 'em"
+      msg.send "#{msg.match[2]}? Never heard of 'em"
 
   robot.respond /standup\?? *$/i, (msg) ->
     msg.send """
