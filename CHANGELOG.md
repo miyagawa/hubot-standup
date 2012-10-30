@@ -1,3 +1,7 @@
+v0.1.7
+======
+* Fix npm stuff
+
 v0.1.6
 ======
 * Support new hipchat @ mentions
