@@ -47,7 +47,7 @@ module.exports = (robot) ->
       return
 
     is_skip = msg.match[1] == 'skip'
-    users = robot.usersForFuzzyName msg.match[2]
+    users = robot.brain.usersForFuzzyName msg.match[2]
     if users.length is 1
       skip = users[0]
       standup = robot.brain.data.standup[msg.message.user.room]
