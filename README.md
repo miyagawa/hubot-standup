@@ -71,13 +71,11 @@ In your `package.json`, add the following line to the dependencies:
    "hubot-standup": "git://github.com/miyagawa/hubot-standup.git"
 ```
 
-Then run `npm install` and create a symbolic link from `scripts` directory:
+Then run `npm install` and add `hubot-standup` to `external-scripts.json`. E.g.:
 
 ```
-ln -s ../node_modules/hubot-standup/src/scripts/standup.coffee scripts/
+["hubot-standup"]
 ```
-
-Add the symlink file to the git repository if necessary (for Heroku deployment).
 
 ### Yammer
 
