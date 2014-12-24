@@ -1,7 +1,16 @@
-# Post log to Yammer
+# Description:
+#   Post standup log to Yammer
 #
-# requires following environment variable
-#   HUBOT_STANDUP_YAMMER_TOKEN: OAuth2 access token
+# Configuration:
+#   HUBOT_STANDUP_YAMMER_TOKEN
+#
+# Commands:
+#   hubot post <group> standup logs to <group id>
+#   hubot forget me on yammer
+#   hubot i am <username> on yammer
+#
+# Author:
+#   @miyagawa
 
 module.exports = (robot) ->
   robot.brain.on 'standupLog', (group, room, response, logs) ->

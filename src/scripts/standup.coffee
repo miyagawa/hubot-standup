@@ -1,6 +1,16 @@
-# Agile standup bot ala tender
+# Description:
+#   Agile standup bot ala tender
 #
-# standup? - show help for standup
+# Commands:
+#   hubot standup? - show help for the standup
+#   hubot <who> is a member of <team> - tell hubot who is the member of <team>'s standup
+#   hubot standup for <team> - start the standup for <team>
+#   hubot cancel standup - cancel the current standup
+#   hubot next - say when your updates for the standup is done
+#   hubot skip <who> - skip someone when they're not available
+#
+# Author:
+#   @miyagawa
 
 module.exports = (robot) ->
   robot.respond /(?:cancel|stop) standup *$/i, (msg) ->
