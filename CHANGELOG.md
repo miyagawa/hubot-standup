@@ -1,3 +1,9 @@
+v0.1.8
+======
+* Documentation changes
+* Support newer version of hubot
+* Support external-scripts.json
+
 v0.1.7
 ======
 * Fix npm stuff
