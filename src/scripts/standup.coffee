@@ -113,6 +113,7 @@ addressUser = (name, adapter) ->
   className = adapter.__proto__.constructor.name
   switch className
     when "HipChat" then "@#{name.replace(' ', '')}"
+    when "SlackBot" then "<@#{user.id}>"
     else "#{name}:"
 
 calcMinutes = (milliseconds) ->
