@@ -107,13 +107,14 @@ nextPerson = (robot, room, msg) ->
     delete robot.brain.data.standup[room]
   else
     standup.current = standup.remaining.shift()
-    msg.send "#{addressUser(standup.current.name, robot.adapter)} your turn"
+    msg.send "#{addressUser(standup.current, robot.adapter)} your turn"
 
-addressUser = (name, adapter) ->
+addressUser = (user, adapter) ->
   className = adapter.__proto__.constructor.name
   switch className
-    when "HipChat" then "@#{name.replace(' ', '')}"
-    else "#{name}:"
+    when "HipChat" then "@#{user.name.replace(' ', '')}"
+    when "SlackBot" then "<@#{user.id}>"
+    else "#{user.name}:"
 
 calcMinutes = (milliseconds) ->
   seconds = Math.floor(milliseconds / 1000)
