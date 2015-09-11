@@ -27,7 +27,7 @@ module.exports = (robot) ->
     attendees = []
     for own key, user of robot.brain.data.users
       roles = user.roles or [ ]
-      if "a #{group} member" in roles or "an #{group} member" in roles or "a member of #{group}" in roles
+      if "#{group}" in roles or "a #{group} member" in roles or "an #{group} member" in roles or "a member of #{group}" in roles
         attendees.push user
     if attendees.length > 0
       robot.brain.data.standup or= {}
