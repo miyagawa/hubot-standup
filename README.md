@@ -20,6 +20,12 @@ hubot: Ok, john is an engineering member
 miyagawa: hubot davidlee is an engineering member
 hubot: Ok, davidlee is an engineering member
 ```
+Or if using [hubot-auth](https://www.npmjs.com/package/hubot-auth):
+
+```
+miyagawa: hubot miyagawa has engineering role
+hubot: OK, miyagawa has the engineering role
+```
 
 You can create as many teams as you want.
 
@@ -64,6 +70,8 @@ hubot: All done! Standup was 5 minutes and 24 seconds.
 ## Installation
 
 This hubot script depends on `roles.coffee` script. You're recommended to use `redis-brain.coffee` to persist the team information.
+
+You can use the [hubot-auth](https://www.npmjs.com/package/hubot-auth) module to manage roles as well.
 
 In your project directory, run the following:
 
