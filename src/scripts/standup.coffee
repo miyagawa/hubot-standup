@@ -93,9 +93,13 @@ module.exports = (robot) ->
     robot.brain.data.standup[msg.message.user.room].log.push { message: msg.message, time: new Date().getTime() }
 
 shuffleArrayClone = (array) ->
-  cloned = []
-  for i in (array.sort -> 0.5 - Math.random())
-    cloned.push i
+  cloned = array.slice(0)
+  i = cloned.length
+  while --i > 0
+    j = ~~(Math.random() * (i + 1))
+    t = cloned[j]
+    cloned[j] = cloned[i]
+    cloned[i] = t
   cloned
 
 nextPerson = (robot, room, msg) ->
